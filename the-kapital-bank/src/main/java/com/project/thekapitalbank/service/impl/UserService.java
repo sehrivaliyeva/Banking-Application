@@ -1,9 +1,6 @@
 package com.project.thekapitalbank.service.impl;
 
-import com.project.thekapitalbank.dto.BankResponse;
-import com.project.thekapitalbank.dto.CreditDebitRequest;
-import com.project.thekapitalbank.dto.EnquiryRequest;
-import com.project.thekapitalbank.dto.UserRequest;
+import com.project.thekapitalbank.dto.*;
 
 public interface UserService {
 
@@ -17,5 +14,6 @@ public interface UserService {
 
     BankResponse debitAccount(CreditDebitRequest request);
 
+    BankResponse transfer(TransferRequest request);
 
 }
