@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 contact = @Contact(
                         name = "Shahrigul Valiyeva",
                         email = "Shahrigul.valiyeva@yahoo.com",
-                        url="https://github.com/sehrivaliyeva/BankingApplicationProject"
+                        url = "https://github.com/sehrivaliyeva/BankingApplicationProject"
                 )
         )
 )

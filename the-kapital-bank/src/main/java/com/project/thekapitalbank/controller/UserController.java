@@ -41,21 +41,53 @@ public class UserController {
     public BankResponse balanceEnquiry(@RequestBody EnquiryRequest request) {
         return userService.balanceEnquiry(request);
     }
+    @Operation(
+            summary = "Name Enquiry",
+            description = "Given an account number, check user name"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 201 SUCCESS"
+    )
 
     @GetMapping("/nameEnquiry")//musteri koduna esasen musterinin adini gosterir
     public String nameEnquiry(@RequestBody EnquiryRequest request) {
         return userService.nameEnquiry(request);
     }
+    @Operation(
+            summary = "Credit Operation",
+            description = "Given an account number and amount, increase your account"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 201 SUCCESS"
+    )
 
     @PostMapping("/credit")//balansi artirmaq ucun istifade edirem
     public BankResponse creditAccount(@RequestBody CreditDebitRequest request) {
         return userService.creditAccount(request);
     }
+    @Operation(
+            summary = "Debit Operation",
+            description = "Given an account number and amount, cash your money"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 201 SUCCESS"
+    )
 
     @PostMapping("/debit")
     public BankResponse debitAccount(@RequestBody CreditDebitRequest request) {
         return userService.debitAccount(request);
     }
+    @Operation(
+            summary = "Transfer Operation",
+            description = "Add your account number and another account number,transfer money"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 201 SUCCESS"
+    )
 
     @PostMapping("/transfer")
     public BankResponse transfer(@RequestBody TransferRequest request) {
