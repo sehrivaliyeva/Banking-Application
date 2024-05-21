@@ -6,7 +6,6 @@ import com.project.thekapitalbank.repository.UserRepository;
 import com.project.thekapitalbank.util.AccountUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -23,8 +22,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     TransactionService transactionService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @Override
     public BankResponse createAccount(UserRequest userRequest) {
@@ -45,7 +42,7 @@ public class UserServiceImpl implements UserService {
                 .accountNumber(AccountUtils.generateAccountNumber())
                 .accountBalance(BigDecimal.ZERO)
                 .email(userRequest.getEmail())
-                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .password(userRequest.getPassword())
                 .phoneNumber(userRequest.getPhoneNumber())
                 .alternativePhoneNumber(userRequest.getAlternativePhoneNumber())
                 .status("ACTIVE")
@@ -72,10 +69,11 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+
     @Override
-    public BankResponse balanceEnquiry(EnquiryRequest request) {
+    public BankResponse balanceEnquiry(String accountNumber) {
         // hesab nomresi ile yoxlayacam bazada olub olmadigini
-        boolean isAccountExist = userRepository.existsByAccountNumber(request.getAccountNumber());
+        boolean isAccountExist = userRepository.existsByAccountNumber(accountNumber);
         if (!isAccountExist) {
             return BankResponse.builder()
                     .responseCode(AccountUtils.ACCOUNT_NOT_EXIST_CODE)
@@ -83,7 +81,7 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
 
-        User foundUser = userRepository.findByAccountNumber(request.getAccountNumber());
+        User foundUser = userRepository.findByAccountNumber(accountNumber);
         return BankResponse.builder()
                 .responseCode(AccountUtils.ACCOUNT_FOUND_CODE)
                 .responseMessage(AccountUtils.ACCOUNT_FOUND_SUCCESS)
@@ -95,6 +93,7 @@ public class UserServiceImpl implements UserService {
                 .build();
 
     }
+
 
     @Override
     public String nameEnquiry(EnquiryRequest request) {
@@ -240,5 +239,6 @@ public class UserServiceImpl implements UserService {
                 .accountInfo(null)
                 .build();
     }
+
 
 }

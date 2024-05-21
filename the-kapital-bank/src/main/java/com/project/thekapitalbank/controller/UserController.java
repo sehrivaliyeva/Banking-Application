@@ -38,9 +38,11 @@ public class UserController {
     )
 
     @GetMapping("/balanceEnquiry")//musterikodune esasen balansi gosterir
-    public BankResponse balanceEnquiry(@RequestBody EnquiryRequest request) {
-        return userService.balanceEnquiry(request);
+    public BankResponse balanceEnquiry(@RequestParam String accountNumber) {
+
+        return userService.balanceEnquiry(accountNumber);
     }
+
     @Operation(
             summary = "Name Enquiry",
             description = "Given an account number, check user name"
@@ -51,9 +53,13 @@ public class UserController {
     )
 
     @GetMapping("/nameEnquiry")//musteri koduna esasen musterinin adini gosterir
-    public String nameEnquiry(@RequestBody EnquiryRequest request) {
+    public String nameEnquiry(@RequestParam String accountNumber) {
+        EnquiryRequest request = EnquiryRequest.builder()
+                .accountNumber(accountNumber)
+                .build();
         return userService.nameEnquiry(request);
     }
+
     @Operation(
             summary = "Credit Operation",
             description = "Given an account number and amount, increase your account"
@@ -67,6 +73,8 @@ public class UserController {
     public BankResponse creditAccount(@RequestBody CreditDebitRequest request) {
         return userService.creditAccount(request);
     }
+
+
     @Operation(
             summary = "Debit Operation",
             description = "Given an account number and amount, cash your money"
@@ -80,6 +88,7 @@ public class UserController {
     public BankResponse debitAccount(@RequestBody CreditDebitRequest request) {
         return userService.debitAccount(request);
     }
+
     @Operation(
             summary = "Transfer Operation",
             description = "Add your account number and another account number,transfer money"
