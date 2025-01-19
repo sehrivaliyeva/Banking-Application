@@ -62,10 +62,6 @@ The application provides core banking functionalities, user account management, 
 - **MySQL Database**
 - A valid **SMTP server** configuration for email notifications.
 
----
 
-## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
+
